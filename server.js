@@ -20,9 +20,6 @@ app.use(postRouter)
 
 
 
-
-
-
 app.use((req, response) => {
   response.send("ERROR");
 });
