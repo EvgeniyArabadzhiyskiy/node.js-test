@@ -6,7 +6,6 @@ require("dotenv").config();
 const API_KEY = process.env.WEATHER_API_KEY;
 const BASE_URL = "https://api.weatherbit.io/v2.0";
 
-
 routerWeather.get("/weatyer", async (req, res) => {
   try {
     const { latitude, longitude } = req.query;
