@@ -37,7 +37,7 @@ routerWeather.get("/weatyer", async (req, res) => {
       description,
       city_name,
     };
-
+    
     res.json(body);
   } catch (error) {
     res.status(500).json({ message: error.message });
