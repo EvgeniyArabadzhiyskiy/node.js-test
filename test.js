@@ -14,6 +14,7 @@ async function getPromise() {
   console.table(result);
 }
 
+
 getPromise();
 
 // npm run te
