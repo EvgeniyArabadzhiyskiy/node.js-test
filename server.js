@@ -2,7 +2,6 @@ const express = require("express");
 const fs = require("fs/promises");
 const axios = require("axios");
 require('dotenv').config()
-const { routeBooks } = require("./booksRoute");
 const { routerWeather } = require("./weatherRoute");
 
 const PORT = process.env.PORT
@@ -14,8 +13,7 @@ const BASE_URL =
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(routeBooks);
-app.use("/api", routeBooks);
+
 app.use(routerWeather);
 
 app.get("/template", async (req, response) => {
@@ -29,6 +27,7 @@ app.get("/base", async (req, response) => {
 
   response.json(data);
 });
+
 
 app.get("/base/:id", async (req, response) => {
   // console.log("params req", req.params.id);
