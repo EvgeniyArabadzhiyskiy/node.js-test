@@ -28,6 +28,7 @@ app.get("/base", async (req, response) => {
   response.json(data);
 });
 
+
 app.get("/base/:id", async (req, response) => {
   // console.log("params req", req.params.id);
 
