@@ -44,6 +44,7 @@ routerWeather.get("/weatyer", async (req, res) => {
   }
 });
 
+
 module.exports = {
   routerWeather,
 };
