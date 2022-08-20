@@ -21,8 +21,6 @@ app.get("/template", async (req, response) => {
   return response.end(data);
 });
 
-
-
 app.get("/base", async (req, response) => {
   const { data } = await axios.get(`${BASE_URL}`);
   console.log("app.put ~ data", data);
