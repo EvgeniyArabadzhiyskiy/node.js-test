@@ -1,6 +1,6 @@
 const axios = require("axios");
 const express = require("express");
-const postRouter = require("./routers/postRouter");
+const {postRouter} = require("./routers/postRouter");
 const { routerWeather } = require("./routers/weatherRoute");
 require("dotenv").config();
 
@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 app.use(routerWeather);
-app.use(postRouter)
+app.use('/api/posts',postRouter)
 
 
 
