@@ -1,17 +1,27 @@
 const axios = require("axios");
 const express = require("express");
+const postRouter = require("./routers/postRouter");
+const { routerWeather } = require("./routers/weatherRoute");
 require("dotenv").config();
-const { routerWeather } = require("./weatherRoute");
+
+
 
 const PORT = process.env.PORT;
 const app = express();
 
-const BASE_URL =
-  "https://62e65af1de23e263792af968.mockapi.io/api/stars-numbers/contacts";
+// const BASE_URL =
+//   "https://62e65af1de23e263792af968.mockapi.io/api/stars-numbers/contacts";
 
 app.use(express.json());
 app.use(express.static("public"));
 app.use(routerWeather);
+app.use(postRouter)
+
+
+
+
+
+
 
 app.use((req, response) => {
   response.send("ERROR");
@@ -28,4 +38,4 @@ console.log("hello  ");
 
 // npx nodemon server.js
 
-// API_KEY = ea41bc3d393b41638cdd827b88acf3ef
+
