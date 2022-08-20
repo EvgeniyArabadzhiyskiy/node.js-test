@@ -32,6 +32,7 @@ router.post("/", (req, res) => {
   res.json({ newPost, status: "success" });
 });
 
+
 router.delete("/:id", (req, res) => {
   const findPostInd = posts.findIndex((post) => post.id === req.params.id);
 
