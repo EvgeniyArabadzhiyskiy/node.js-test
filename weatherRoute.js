@@ -6,27 +6,6 @@ require("dotenv").config();
 const API_KEY = process.env.WEATHER_API_KEY;
 const BASE_URL = "https://api.weatherbit.io/v2.0";
 
-// const params = new URLSearchParams({
-//   user: 'abc',
-//   query: ['first', 'second']
-// });
-// console.log(params.get('query'));
-// Prints [ 'first,second' ]
-// console.log(params.toString());
-
-// '&lat=35.7796&lon=-78.6382'
-
-// async function ddd (req, response)  {
-//   const params = new URLSearchParams('&lat=35.7796&lon=-78.6382');
-//   console.log(params.toString());
-
-//   const res = await axios.get(`${BASE_URL}/current?key=${API_KEY}`, {params} );
-
-// console.log("res", res);
-// }
-
-// ddd()
-
 routerWeather.get("/weatyer", async (req, res) => {
   try {
     const { latitude, longitude } = req.query;
