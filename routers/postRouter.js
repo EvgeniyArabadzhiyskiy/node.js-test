@@ -70,6 +70,8 @@ router.put("/:id", (req, res) => {
 
   // res.json(posts);
 
+  
+
   //========================================================================
   const findPostInd = posts.findIndex((post) => post.id === req.params.id);
   console.log("router.put ~ findPostInd", posts[findPostInd]);
@@ -81,7 +83,7 @@ router.put("/:id", (req, res) => {
   console.log("router.put ~ findPostInd", posts[findPostInd]);
 
   res.json(posts[findPostInd]);
-  
+
   //========================================================================
   // posts.forEach((post, index) => {
   //   if (post.id === req.params.id) {
