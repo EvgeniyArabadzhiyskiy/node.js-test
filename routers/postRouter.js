@@ -82,6 +82,8 @@ router.put("/:id", (req, res) => {
   // });
 
   res.json(posts);
+
+  
 });
 
 router.delete("/:id", (req, res) => {
