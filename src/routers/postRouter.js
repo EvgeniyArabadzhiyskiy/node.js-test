@@ -22,6 +22,7 @@ router.put("/:id", putPostValidation, putPost);
 router.delete("/:id", deletePost);
 
 module.exports = { postRouter: router };
+
 //=======================================================================================================
 // const words = [{tag:{name:'one'}}, {tag:{name:'two'}}, {tag:{name:'three'}}, {tag:{name:'four'}}]
 

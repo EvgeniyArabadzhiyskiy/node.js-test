@@ -30,6 +30,7 @@ const putPostValidation = (req, res, next) => {
   next();
 };
 
+
 module.exports = {
   addPostValidation,
   putPostValidation,

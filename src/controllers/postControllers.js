@@ -56,7 +56,7 @@ const putPost = (req, res) => {
 
   res.json(posts[findPostInd]);
 
-  //=======================================================================
+  //======================================================================
   // posts.forEach((post, index) => {
   //   if (post.id === req.params.id) {
   //     posts[index] = {
