@@ -1,7 +1,7 @@
 const axios = require("axios");
 const express = require("express");
-const {postRouter} = require("./routers/postRouter");
-const { routerWeather } = require("./routers/weatherRoute");
+const {postRouter} = require("./src/routers/postRouter");
+const { routerWeather } = require("./src/routers/weatherRoute");
 require("dotenv").config();
 
 
