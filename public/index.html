@@ -10,7 +10,6 @@
   <body>
     <h1>Common Title</h1>
     <h3>Lorem ipsum dolor sit ame officixercitationem po.</h3>
-    <p class="info">0</p>
 
     <ul class="list">
       <li class="list_item" data-open="open">ITEM</li>
@@ -20,45 +19,85 @@
       <li class="list_item" data-open="open">ITEM</li>
       <li class="list_item" data-open="open">ITEM</li>
     </ul>
+
+    <p class="info">0</p>
+    <button class="increment" type="button">+1</button>
+    <button class="decrement" type="button">-1</button>
+
     <script>
-      const listGallery = document.querySelector(".list");
-      const item = document.querySelector(".list_item");
-      const info = document.querySelector(".info");
+      // const listGallery = document.querySelector(".list");
+      // const item = document.querySelector(".list_item");
 
-      let counter = 0;
+      // const incrBtn = document.querySelector(".increment");
+      // const decrBtn = document.querySelector(".decrement");
+      // const info = document.querySelector(".info");
 
-      info.textContent = counter
-
-      function increment() {
-        counter += 1
-
-      }
-
-      function decrement() {
-        counter -= 1
-      }
-
-      const onclickByItem = (evt) => {
-    
-
-        // if (!evt.target.dataset.open) {
-        //   return;
-        // }
-
-        if (evt.target.nodeName === "UL") {
-            decrement()
-            info.textContent = counter
-            console.log("counter", counter)
-            return 
+      class Counter {
+        constructor({ initialValue = 0, step = 1 } = {}) {
+          this.value = initialValue;
+          this.step = step;
+          this.bindEvents();
+          this.updateValueUI();
         }
 
-        increment()
-        info.textContent = counter
-        console.log("counter", counter)
-      };
+        refs = {
+          incrBtn: document.querySelector(".increment"),
+          decrBtn: document.querySelector(".decrement"),
+          info: document.querySelector(".info"),
+        };
 
-      listGallery.addEventListener("click", onclickByItem);
+        bindEvents() {
+          this.refs.incrBtn.addEventListener("click", () => {
+            this.increment();
+            this.updateValueUI();
+          });
 
+          this.refs.decrBtn.addEventListener("click", () => {
+            this.decrement();
+            this.updateValueUI();
+          });
+        }
+
+        increment() {
+          this.value += this.step;
+          console.log("Counter ~ increment ~ this", this);
+          this.updateValueUI();
+        }
+
+        decrement() {
+          this.value -= this.step;
+          this.updateValueUI();
+        }
+
+        updateValueUI() {
+          this.refs.info.textContent = this.value;
+        }
+      }
+
+      const counter = new Counter({ initialValue: 10, step: 10 });
+
+      // incrBtn.addEventListener("click", onClickIncrement.bind(counter));
+      // decrBtn.addEventListener("click", onClickDecrement.bind(counter));
+
+      // function onClickIncrement() {
+      //   this.increment();
+      // }
+
+      // function onClickDecrement() {
+      //   this.decrement();
+      // }
+
+      // const onclickByItem = (evt) => {
+      //   // if (!evt.target.dataset.open) {
+      //   //   return;
+      //   // }
+
+      //   // if (evt.target.nodeName === "UL") {
+      //   //   return;
+      //   // }
+      // };
+
+      // listGallery.addEventListener("click", onclickByItem);
     </script>
   </body>
 </html>

@@ -19,6 +19,11 @@ app.use((req, response) => {
   response.send("ERROR");
 });
 
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message: err.message });
+});
+
 app.listen(PORT, (err) => {
   if (err) {
     console.error(err);

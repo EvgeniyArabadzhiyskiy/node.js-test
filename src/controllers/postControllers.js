@@ -12,7 +12,11 @@ const getPostById = (req, res) => {
   const [findPost] = posts.filter((post) => post.id === req.params.id);
 
   if (!findPost) {
-    return res.json({ message: `Post with  id=${req.params.id} Not Found` });
+    return res.status(400).json({ message: `Post with  id=${req.params.id} Not Found` });
+
+    // const error = new Error(`Post with  id=${req.params.id} Not Found`)
+    // error.status = 400
+    // throw error 
   }
   res.json(findPost);
 };
