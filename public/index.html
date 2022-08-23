@@ -1,14 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styless.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styless.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Common Title</h1>
-    <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae nulla, rerum fugit adipisci officia quo iste? Eligendi ipsam exercitationem porro nulla magnam recusandae fuga excepturi facilis ratione, sunt incidunt pariatur placeat quo quasi, laborum id repellendus error laudantium ab dignissimos maiores fugiat nostrum. Recusandae perspiciatis voluptatum nulla veniam placeat ex.</h3>
-</body>
+    <h3>Lorem ipsum dolor sit ame officixercitationem po.</h3>
+
+    <ul class="list">
+      <li class="list_item" data-open="open">ITEM</li>
+      <li class="list_item" data-open="open">ITEM</li>
+      <li class="list_item" data-open="open">ITEM</li>
+      <li class="list_item" data-open="open">ITEM</li>
+      <li class="list_item" data-open="open">ITEM</li>
+      <li class="list_item" data-open="open">ITEM</li>
+    </ul>
+
+    <p class="info">0</p>
+    <button class="increment" type="button">+1</button>
+    <button class="decrement" type="button">-1</button>
+
+    <script>
+      // const listGallery = document.querySelector(".list");
+      // const item = document.querySelector(".list_item");
+
+      // const incrBtn = document.querySelector(".increment");
+      // const decrBtn = document.querySelector(".decrement");
+      // const info = document.querySelector(".info");
+
+      class Counter {
+        constructor({ initialValue = 0, step = 1 } = {}) {
+          this.value = initialValue;
+          this.step = step;
+          this.bindEvents();
+          this.updateValueUI();
+        }
+
+        refs = {
+          incrBtn: document.querySelector(".increment"),
+          decrBtn: document.querySelector(".decrement"),
+          info: document.querySelector(".info"),
+        };
+
+        bindEvents() {
+          this.refs.incrBtn.addEventListener("click", () => {
+            this.increment();
+            this.updateValueUI();
+          });
+
+          this.refs.decrBtn.addEventListener("click", () => {
+            this.decrement();
+            this.updateValueUI();
+          });
+        }
+
+        increment() {
+          this.value += this.step;
+          console.log("Counter ~ increment ~ this", this);
+          this.updateValueUI();
+        }
+
+        decrement() {
+          this.value -= this.step;
+          this.updateValueUI();
+        }
+
+        updateValueUI() {
+          this.refs.info.textContent = this.value;
+        }
+      }
+
+      const counter = new Counter({ initialValue: 10, step: 10 });
+
+      // incrBtn.addEventListener("click", onClickIncrement.bind(counter));
+      // decrBtn.addEventListener("click", onClickDecrement.bind(counter));
+
+      // function onClickIncrement() {
+      //   this.increment();
+      // }
+
+      // function onClickDecrement() {
+      //   this.decrement();
+      // }
+
+      // const onclickByItem = (evt) => {
+      //   // if (!evt.target.dataset.open) {
+      //   //   return;
+      //   // }
+
+      //   // if (evt.target.nodeName === "UL") {
+      //   //   return;
+      //   // }
+      // };
+
+      // listGallery.addEventListener("click", onclickByItem);
+    </script>
+  </body>
 </html>

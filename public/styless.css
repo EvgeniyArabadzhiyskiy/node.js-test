@@ -2,3 +2,12 @@ h1 {
     color: red;
     font-size: 40px;
 }
+
+.list {
+    background-color: rgb(207, 140, 140);
+}
+
+.list > li {
+    background-color: rgb(94, 84, 177);
+    margin-top: 30px;
+}
