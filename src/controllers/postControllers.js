@@ -71,6 +71,7 @@ const putPost = (req, res) => {
   // });
 };
 
+
 module.exports = {
   getPost,
   getPostById,
