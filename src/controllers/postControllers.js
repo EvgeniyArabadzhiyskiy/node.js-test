@@ -29,12 +29,11 @@ const addPost = async (req, res) => {
 
   // const { topics, text } = req.body;
 
-
   const post = new Posts({ ...req.body });
   await post.save();
   // await Posts.create({ text, topics });
 
-  res.status(201).json({newPost, status: "success" });
+  res.status(201).json({ newPost, status: "success" });
 };
 
 const deletePost = async (req, res) => {
