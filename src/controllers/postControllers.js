@@ -1,85 +1,67 @@
-// const { Posts } = require("../db/collections");
+const ObjectId = require("mongodb").ObjectId;
 
 const collections = require("../db/collections");
 
-// let posts = [
-//   { id: "1", topics: "text1", text: "test text1" },
-//   { id: "2", topics: "text2", text: "test text2" },
-//   { id: "3", topics: "text3", text: "test text3" },
-// ];
-
-// const contacts = await collection.find({}).toArray();
-// console.log("main ~ contacts", contacts);
-
-// const getPost = async (req, res) => {
-//   const posts = await Posts.find({}).toArray();
-
-//   res.json({ posts, status: "success" });
-// };
-
-
 const getPost = async (req, res) => {
-  // const posts = await Posts.find({}).toArray();
   const posts = await collections.Posts.find({}).toArray();
 
   console.log("getPost ~ posts", posts);
   res.json({ posts, status: "success" });
 };
-// getPost()
 
-const getPostById = (req, res) => {
-  const [findPost] = posts.filter((post) => post.id === req.params.id);
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const findPost = await collections.Posts.findOne({ _id: ObjectId(id) });
 
   if (!findPost) {
     return res
       .status(400)
       .json({ message: `Post with  id=${req.params.id} Not Found` });
-
-    // const error = new Error(`Post with  id=${req.params.id} Not Found`)
-    // error.status = 400
-    // throw error
   }
   res.json(findPost);
 };
 
-const addPost = (req, res) => {
+const addPost = async (req, res) => {
   const newPost = {
-    id: Date.now().toString(),
     ...req.body,
   };
 
-  posts.push(newPost);
+  await collections.Posts.insertOne({ ...req.body });
 
-  res.json({ newPost, status: "success" });
+  res.status(201).json({ newPost, status: "success" });
 };
 
-const deletePost = (req, res) => {
-  posts = posts.filter((post) => post.id !== req.params.id);
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const deletePost = await collections.Posts.findOne({ _id: ObjectId(id) });
+  await collections.Posts.deleteOne({ _id: ObjectId(id) });
 
-  res.json(posts);
+  if (!deletePost) {
+    return res
+      .status(400)
+      .json({ message: `Post with  id=${req.params.id} Not Found` });
+  }
+
+  res.json({ deletePost, status: "success" });
 };
 
-const putPost = (req, res) => {
+const putPost = async (req, res) => {
   const { topics, text } = req.body;
+  const { id } = req.params;
 
-  posts.forEach((post) => {
-    if (post.id === req.params.id) {
-      post.topics = topics;
-      post.text = text;
-    }
-  });
+  await collctions.Posts.updateOne(
+    { _id: ObjectId(id) },
+    { $set: { topics, text } }
+  );
+  const updatePost = await collections.Posts.findOne({ _id: ObjectId(id) });
 
-  // res.json(posts);
+  if (!updatePost) {
+    return res
+      .status(400)
+      .json({ message: `Post with  id=${req.params.id} Not Found` });
+  }
 
-  //========================================================================
-  const findPostInd = posts.findIndex((post) => post.id === req.params.id);
-
-  posts[findPostInd] = {
-    ...posts[findPostInd],
-    ...req.body,
-  };
-
-  res.json(posts[findPostInd]);
+  res.json({ updatePost, status: "success" });
 };
 
 module.exports = {
