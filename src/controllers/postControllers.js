@@ -1,9 +1,10 @@
 const ObjectId = require("mongodb").ObjectId;
+const { Posts } = require("../db/postModel");
 
 const collections = require("../db/collections");
 
 const getPost = async (req, res) => {
-  const posts = await collections.Posts.find({}).toArray();
+  const posts = await Posts.find({});
 
   console.log("getPost ~ posts", posts);
   res.json({ posts, status: "success" });
@@ -11,7 +12,7 @@ const getPost = async (req, res) => {
 
 const getPostById = async (req, res) => {
   const { id } = req.params;
-  const findPost = await collections.Posts.findOne({ _id: ObjectId(id) });
+  const findPost = await Posts.findById(id);
 
   if (!findPost) {
     return res
@@ -26,15 +27,20 @@ const addPost = async (req, res) => {
     ...req.body,
   };
 
-  await collections.Posts.insertOne({ ...req.body });
+  // const { topics, text } = req.body;
 
-  res.status(201).json({ newPost, status: "success" });
+
+  const post = new Posts({ ...req.body });
+  await post.save();
+  // await Posts.create({ text, topics });
+
+  res.status(201).json({newPost, status: "success" });
 };
 
 const deletePost = async (req, res) => {
   const { id } = req.params;
-  const deletePost = await collections.Posts.findOne({ _id: ObjectId(id) });
-  await collections.Posts.deleteOne({ _id: ObjectId(id) });
+  const deletePost = await Posts.findById(id);
+  await Posts.findByIdAndRemove(id);
 
   if (!deletePost) {
     return res
@@ -49,11 +55,8 @@ const putPost = async (req, res) => {
   const { topics, text } = req.body;
   const { id } = req.params;
 
-  await collctions.Posts.updateOne(
-    { _id: ObjectId(id) },
-    { $set: { topics, text } }
-  );
-  const updatePost = await collections.Posts.findOne({ _id: ObjectId(id) });
+  await Posts.findByIdAndUpdate(id, { $set: { topics, text } });
+  const updatePost = await Posts.findById(id);
 
   if (!updatePost) {
     return res
