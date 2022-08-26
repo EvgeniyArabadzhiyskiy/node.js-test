@@ -1,18 +1,23 @@
-const ObjectId = require("mongodb").ObjectId;
 const { Posts } = require("../db/postModel");
 
-const collections = require("../db/collections");
+// const collections = require("../db/collections");
+const {
+  getPost,
+  getPostById,
+  addPost,
+  deletePost,
+  changePost,
+} = require("../services/postService");
 
-const getPost = async (req, res) => {
-  const posts = await Posts.find({});
+const getPostController = async (req, res) => {
+  const posts = await getPost();
 
-  console.log("getPost ~ posts", posts);
   res.json({ posts, status: "success" });
 };
 
-const getPostById = async (req, res) => {
+const getPostByIdController = async (req, res) => {
   const { id } = req.params;
-  const findPost = await Posts.findById(id);
+  const findPost = await getPostById(id);
 
   if (!findPost) {
     return res
@@ -22,40 +27,32 @@ const getPostById = async (req, res) => {
   res.json(findPost);
 };
 
-const addPost = async (req, res) => {
-  const newPost = {
-    ...req.body,
-  };
-
-  // const { topics, text } = req.body;
-
-  const post = new Posts({ ...req.body });
-  await post.save();
-  // await Posts.create({ text, topics });
+const addPostController = async (req, res) => {
+  const newPost = await addPost(req);
 
   res.status(201).json({ newPost, status: "success" });
 };
 
-const deletePost = async (req, res) => {
+const deletePostController = async (req, res) => {
   const { id } = req.params;
-  const deletePost = await Posts.findById(id);
-  await Posts.findByIdAndRemove(id);
+  const removedPost = await getPostById(id);
+  await deletePost(id);
 
-  if (!deletePost) {
+  if (!removedPost) {
     return res
       .status(400)
       .json({ message: `Post with  id=${req.params.id} Not Found` });
   }
 
-  res.json({ deletePost, status: "success" });
+  res.json({ removedPost, status: "success" });
 };
 
-const putPost = async (req, res) => {
-  const { topics, text } = req.body;
+const putPostController = async (req, res) => {
   const { id } = req.params;
+  const { topics, text } = req.body;
 
-  await Posts.findByIdAndUpdate(id, { $set: { topics, text } });
-  const updatePost = await Posts.findById(id);
+  await changePost(id, { topics, text });
+  const updatePost = await getPostById(id);
 
   if (!updatePost) {
     return res
@@ -67,9 +64,9 @@ const putPost = async (req, res) => {
 };
 
 module.exports = {
-  getPost,
-  getPostById,
-  addPost,
-  putPost,
-  deletePost,
+  getPostController,
+  getPostByIdController,
+  addPostController,
+  putPostController,
+  deletePostController,
 };

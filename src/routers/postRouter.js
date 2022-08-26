@@ -7,21 +7,21 @@ const {
 } = require("../middlewares/validationMiddlewear");
 
 const {
-  getPost,
-  getPostById,
-  addPost,
-  putPost,
-  deletePost,
+  getPostController,
+  getPostByIdController,
+  addPostController,
+  putPostController,
+  deletePostController,
 } = require("../controllers/postControllers");
 
 const controllerWrapper = require("../middlewares/controllerWrapper");
 
 const router = express.Router();
 
-router.get("/", controllerWrapper(getPost));
-router.get("/:id", controllerWrapper(getPostById));
-router.post("/", addPostValidation, controllerWrapper(addPost));
-router.put("/:id", putPostValidation, controllerWrapper(putPost));
-router.delete("/:id", controllerWrapper(deletePost));
+router.get("/", controllerWrapper(getPostController));
+router.get("/:id", controllerWrapper(getPostByIdController));
+router.post("/", addPostValidation, controllerWrapper(addPostController));
+router.put("/:id", putPostValidation, controllerWrapper(putPostController));
+router.delete("/:id", controllerWrapper(deletePostController));
 
 module.exports = { postRouter: router };
