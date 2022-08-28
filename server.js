@@ -1,5 +1,6 @@
 const express = require("express");
 const { connectionMongo } = require("./src/db/connections");
+const { authRouter } = require("./src/routers/authRouter");
 const { postRouter } = require("./src/routers/postRouter");
 require("dotenv").config();
 
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
 
 app.use((req, response) => {
