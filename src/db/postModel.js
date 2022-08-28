@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const postSchema = new mongoose.Schema({
+const postSchema = Schema({
   topics: {
     type: String,
     required: true,
@@ -17,9 +17,24 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+
+  // name: {
+  //   type: String,
+  //   required: [true, "Set name for contact"],
+  // },
+  // email: {
+  //   type: String,
+  // },
+  // phone: {
+  //   type: String,
+  // },
+  // favorite: {
+  //   type: Boolean,
+  //   default: false,
+  // },
 });
 
-const Posts = mongoose.model("Post", postSchema);
+const Posts = model("Posts", postSchema);
 
 module.exports = {
   Posts,
