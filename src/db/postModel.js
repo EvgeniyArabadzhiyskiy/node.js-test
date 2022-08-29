@@ -4,13 +4,18 @@ const postSchema = Schema({
   topics: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
 
   text: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
+  },
+
+  userId: {
+    type: String,
+    required: true,
   },
 
   createAt: {
