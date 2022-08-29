@@ -1,27 +1,35 @@
 const { Posts } = require("../db/postModel");
 
-const getPost = async () => {
-  return await Posts.find({});
+const getPost = async ({userId, limit, skipPost}) => {
+  return await Posts.find({ userId }).skip(skipPost).limit(limit);
 };
 
-const getPostById = async (id) => {
-  return await Posts.findById(id);
+const getPostById = async (postId, userId) => {
+  return await Posts.findOne({ _id: postId, userId });
 };
 
-const addPost = async (req) => {
+const addPost = async (userId, body) => {
   // const { topics, text } = req.body;
   // const newPost = await Posts.create({ text, topics });
 
-  const post = new Posts({ ...req.body });
+  const post = new Posts({ ...body, userId });
   return await post.save();
 };
 
-const deletePost = async (id) => {
-  await Posts.findByIdAndRemove(id);
+const deletePost = async (postId, userId) => {
+  return await Posts.findOneAndRemove({ _id: postId, userId });
 };
 
-const changePost = async (id, { topics, text }) => {
-  await Posts.findByIdAndUpdate(id, { $set: { topics, text } });
+const changePost = async (postId, { topics, text }, userId) => {
+  const updatePost = await Posts.findOneAndUpdate(
+    { _id: postId, userId },
+    {
+      $set: { topics, text },
+    },
+    { new: true }
+  );
+
+  return updatePost;
 };
 
 module.exports = {
