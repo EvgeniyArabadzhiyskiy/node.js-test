@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { ObjectId } = require("mongoose").Types;
 
 const postSchema = Schema({
   topics: {
@@ -10,12 +11,15 @@ const postSchema = Schema({
   text: {
     type: String,
     required: true,
+    // select: false,
     // unique: true,
   },
 
   userId: {
-    type: String,
+    type: ObjectId,
+    // type: String,
     required: true,
+    // select: false,
   },
 
   createAt: {
