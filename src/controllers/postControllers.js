@@ -11,11 +11,10 @@ const {
 
 const getPostController = async (req, res) => {
   const { _id: userId } = req.user;
-  const { limit, page } = req.query;
-  const skipPost = (page - 1) * limit
+  const { limit = 20, page = 1 } = req.query;
+  const skipPost = (page - 1) * limit;
 
-  const posts = await getPost({userId, limit, skipPost});
-  
+  const posts = await getPost(userId, limit, skipPost);
 
   res.json({ posts, status: "success" });
 };
