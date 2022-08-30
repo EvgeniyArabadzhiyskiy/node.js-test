@@ -6,6 +6,10 @@ const { User } = require("../db/userModel");
 const registration = async (name, password) => {
   const user = new User({ name, password: await bcrypt.hash(password, 10) });
   return await user.save();
+
+  // const newUser = new User({ name });
+  // newUser.setPassword(password);
+  // newUser.save();
 };
 
 const login = async (name, password) => {

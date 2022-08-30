@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = Schema({
   name: {
@@ -22,6 +23,16 @@ const userSchema = Schema({
     default: Date.now(),
   },
 });
+
+// userSchema.pre("save", async function () {
+//   if (this.isNew) {
+//     this.password = await bcrypt.hash(this.password, 10);
+//   }
+// });
+
+// userSchema.methods.setPassword = function (password) {
+//   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+// };
 
 const User = model("User", userSchema);
 
