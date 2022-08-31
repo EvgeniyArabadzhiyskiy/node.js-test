@@ -1,42 +1,40 @@
 const { Posts } = require("../db/postModel");
 
-const getPost = async ( userId, limit, skipPost ) => {
+const getPost = async (owner, limit, skipPost) => {
+  return await Posts.find({ owner }).populate("owner", {__v: 0, password: 0});
 
-  return await Posts.find({ userId });
-
-  // return await Posts.find({ userId })
-  // .select({ __v: 0, userId: 0, createAt: 0 })
+  // return await Posts.find({ owner })
+  // .select({ __v: 0, owner: 0, createAt: 0 })
   // .skip(skipPost)
   // .limit(limit);
 
   // return await Posts.aggregate([
-  //   { $match: { userId } },
+  //   { $match: { owner } },
   //   { $project: { __v: 0, createAt: 0 } },
   //   { $skip: Number(skipPost) },
   //   { $limit: Number(limit) },
   // ]);
 };
 
-const getPostById = async (postId, userId) => {
-  const result = await Posts.findOne({ _id: postId, userId });
-  return result
+const getPostById = async (postId, owner) => {
+  const result = await Posts.findOne({ _id: postId, owner });
+  return result;
 };
 
-const addPost = async (userId, body) => {
-  const post = new Posts({ ...body, userId });
+const addPost = async (owner, body) => {
+  const post = new Posts({ ...body, owner });
 
   return await post.save();
 };
 
-const deletePost = async (postId, userId) => {
-
-  return await Posts.findOneAndRemove({ _id: postId, userId });
+const deletePost = async (postId, owner) => {
+  return await Posts.findOneAndRemove({ _id: postId, owner });
 };
 
-const changePost = async (postId, { topics, text }, userId) => {
+const changePost = async (postId, { topics, text }, owner) => {
   const updatePost = await Posts.findOneAndUpdate(
-    { _id: postId, userId },
-    {  $set: { topics, text } },
+    { _id: postId, owner },
+    { $set: { topics, text } },
     { new: true }
   );
 
