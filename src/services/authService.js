@@ -25,13 +25,13 @@ const login = async (name, password) => {
     throw new Error("Wrong Password");
   }
 
-  const token = jwt.sign(
-    {
-      _id: user._id,
-      createAt: user.createAt,
-    },
-    process.env.JWT_SECRET
-  );
+  const payload = {
+    _id: user._id,
+    createAt: user.createAt,
+  };
+
+  const token = jwt.sign(payload, process.env.JWT_SECRET);
+  await User.findByIdAndUpdate(user._id, { token });
 
   return token;
 };
