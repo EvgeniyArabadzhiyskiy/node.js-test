@@ -22,6 +22,11 @@ const userSchema = Schema({
     type: Date,
     default: Date.now(),
   },
+
+  token: {
+    type: String,
+    default: null,
+  },
 });
 
 // userSchema.pre("save", async function () {
@@ -34,7 +39,7 @@ const userSchema = Schema({
 //   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 // };
 
-const User = model("User", userSchema);
+const User = model("user", userSchema);
 
 module.exports = {
   User,
