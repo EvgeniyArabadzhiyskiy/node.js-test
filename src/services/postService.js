@@ -1,7 +1,7 @@
 const { Posts } = require("../db/postModel");
 
 const getPost = async (owner, limit, skipPost) => {
-  return await Posts.find({ owner }).populate("owner", {__v: 0, password: 0});
+  return await Posts.find({ owner }).populate("owner", {__v: 0, password: 0, token: 0});
 
   // return await Posts.find({ owner })
   // .select({ __v: 0, owner: 0, createAt: 0 })

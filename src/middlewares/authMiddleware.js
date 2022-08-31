@@ -15,7 +15,6 @@ const authMiddleware = async (req, res, next) => {
   try {
     const { _id } = jwt.decode(token, process.env.JWT_SECRET);
     const user = await User.findById(_id);
-    console.log("authMiddleware ~ user", user);
 
     if (!user || !user.token) {
       return res.status(401).json({ message: "Not authorization" });
