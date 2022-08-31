@@ -15,9 +15,9 @@ const postSchema = Schema({
     // unique: true,
   },
 
-  userId: {
+  owner: {
     type: ObjectId,
-    // type: String,
+    ref: "user",
     required: true,
     // select: false,
   },
