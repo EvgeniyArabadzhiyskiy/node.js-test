@@ -2,6 +2,7 @@ const express = require("express");
 const { connectionMongo } = require("./src/db/connections");
 const { authRouter } = require("./src/routers/authRouter");
 const { postRouter } = require("./src/routers/postRouter");
+const { filesRouter } = require("./src/routers/filesRouter");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
+app.use("/api/files", filesRouter);
 
 app.use((req, response) => {
   response.send("ERROR");
