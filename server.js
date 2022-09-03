@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { connectionMongo } = require("./src/db/connections");
 const { authRouter } = require("./src/routers/authRouter");
 const { postRouter } = require("./src/routers/postRouter");
@@ -9,6 +10,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(express.static("public"));
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
