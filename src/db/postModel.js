@@ -15,6 +15,10 @@ const postSchema = Schema({
     // unique: true,
   },
 
+  image: {
+    type: String,
+  },
+
   owner: {
     type: ObjectId,
     ref: "user",
