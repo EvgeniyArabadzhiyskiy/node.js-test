@@ -24,6 +24,34 @@
     <button class="increment" type="button">+1</button>
     <button class="decrement" type="button">-1</button>
 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"
+      integrity="sha512-rozBdNtS7jw9BlC76YF1FQGjz17qQ0J/Vu9ZCFIW374sEy4EZRbRcUZa2RU/MZ90X2mnLU56F75VfdToGV0RiA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+
+      async function getProducts(params) {
+        const options = {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBmYzE3NWQ3NTg5MGQ0YmQ0MzYzOTEiLCJjcmVhdGVBdCI6IjIwMjItMDgtMzFUMTk6MTY6MTYuMDA0WiIsImlhdCI6MTY2MjEwOTk4OH0.LlfnxtK5wjiLVJ0D9Fm0j2yt4C2ev9pjTw36FkRTogY",
+          },
+        };
+
+        const {data} = await axios.get(
+          
+          "http://localhost:8085/api/posts",
+          options
+        );
+
+        console.log("getProducts ~ data", data);
+      }
+      getProducts()
+    </script>
+
     <script>
       // const listGallery = document.querySelector(".list");
       // const item = document.querySelector(".list_item");
