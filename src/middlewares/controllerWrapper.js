@@ -1,7 +1,6 @@
 const controllerWrapper = (ctrl) => {
   return (req, res, next) => {
-    ctrl(req, res).catch((err) => {
-      // console.log("return ~ err", err.message);
+    ctrl(req, res, next).catch((err) => {
       next(err)
     });
   };
