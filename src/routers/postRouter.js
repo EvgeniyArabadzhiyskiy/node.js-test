@@ -28,7 +28,7 @@ router.use(authMiddleware)
 router.get("/", controllerWrapper(getPostController));
 router.get("/:id", controllerWrapper(getPostByIdController));
 router.post("/", uploadMiddleware.single("avatar"), controllerWrapper(filesController), controllerWrapper(addPostController));
-router.post("/upload", uploadMiddleware.single("avatar"), controllerWrapper(filesController));
+// router.post("/upload", uploadMiddleware.single("avatar"), controllerWrapper(filesController));
 router.put("/:id", putPostValidation, controllerWrapper(putPostController));
 router.delete("/:id", controllerWrapper(deletePostController));
 

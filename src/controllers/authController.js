@@ -1,5 +1,10 @@
+const path = require("path");
+const fs = require("fs/promises");
+
 const { User } = require("../db/userModel");
 const { registration, login, logout } = require("../services/authService");
+
+const avatarDir = path.join(__dirname, "../../", "public", "avatars");
 
 const registrationControleer = async (req, res) => {
   const { name, password } = req.body;
@@ -28,9 +33,26 @@ const logoutControleer = async (req, res) => {
 const currentUserControleer = async (req, res) => {
   const { _id } = req.user;
 
-  const { name, createAt } = await User.findById(_id);
+  const { name, createAt, avatarUrl } = await User.findById(_id);
 
-  res.json({ status: "success", name, createAt });
+  res.json({ status: "success", name, createAt, avatarUrl });
+};
+
+const updateAvatarController = async (req, res) => {
+  const {_id} = req.user
+  const { path: originalPath, filename } = req.file;
+  const endPath = path.join(avatarDir, filename); 
+
+  const avatarUrl = path.join( "avatars", filename);
+
+  try {
+    await fs.rename(originalPath, endPath);
+    await User.findByIdAndUpdate(_id, { avatarUrl })
+
+    res.json({avatarUrl})
+  } catch (error) {
+    await fs.unlink(originalPath)
+  }
 };
 
 module.exports = {
@@ -38,4 +60,5 @@ module.exports = {
   loginControleer,
   logoutControleer,
   currentUserControleer,
+  updateAvatarController,
 };

@@ -12,7 +12,11 @@ const userSchema = Schema({
   //     type: String,
   //     required: true,
   //   },
-
+  avatarUrl: {
+    type: String,
+    required: true,
+  },
+  
   password: {
     type: String,
     required: true,
