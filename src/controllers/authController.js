@@ -2,11 +2,11 @@ const { User } = require("../db/userModel");
 const { registration, login, logout } = require("../services/authService");
 
 const registrationControleer = async (req, res) => {
-  const { name, password } = req.body;
+  const { name, email, password } = req.body;
 
-  const user = await registration(name, password);
+  const user = await registration(name, email, password);
 
-  res.json({ message: "success" });
+  res.json({ user, status: "success",  });
 };
 
 const loginControleer = async (req, res) => {
