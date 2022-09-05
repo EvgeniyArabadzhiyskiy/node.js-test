@@ -16,9 +16,10 @@ const registration = async (name, email, password, verificationToken) => {
   const msg = {
     to: email, // Change to your recipient
     from: 'djon4292@gmail.com', // Change to your verified sender
-    subject: 'Hello World',
+    subject: 'VERIFYCATION',
     text: `http://localhost:8085/api/auth/verify/${verificationToken}`,
-    html: `<h1>http://localhost:8085/api/auth/verify/${verificationToken}</h1>`,
+    html: `<a href="http://localhost:8085/api/auth/verify/${verificationToken}">
+    VERIFYCATION CODE</a>`,
   }
 
   try {
@@ -35,12 +36,11 @@ const registration = async (name, email, password, verificationToken) => {
 };
 
 const login = async (name, password) => {
-  const user = await User.findOne({ name });
-  // console.log("login ~ user", user.verify);
+  const user = await User.findOne({ name, verify: true });
 
-  if (!user.verify) {
-    throw new Error(`User with email ${user.email} not verification `);
-  }
+  // if (!user.verify) {
+  //   throw new Error(`User with email ${user.email} not verification `);
+  // }
 
   if (!user) {
     throw new Error(`User with name ${name} not found`);
@@ -98,7 +98,7 @@ const repeatVerify = async (email) => {
    const msg = {
      to: email, // Change to your recipient
      from: 'djon4292@gmail.com', // Change to your verified sender
-     subject: 'Hello World',
+     subject: 'VERIFYCATION REPEAT',
      text: `http://localhost:8085/api/auth/verify/${verificationToken}`,
      html: `<h1>http://localhost:8085/api/auth/verify/${verificationToken}</h1>`,
    }
