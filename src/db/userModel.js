@@ -13,6 +13,11 @@ const userSchema = Schema({
     required: true,
   },
 
+  avatarUrl: {
+    type: String,
+    required: true,
+  },
+
   password: {
     type: String,
     required: true,
