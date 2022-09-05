@@ -33,9 +33,15 @@ const currentUserControleer = async (req, res) => {
   res.json({ status: "success", name, createAt });
 };
 
+const verifyEmailControleer = async (req, res) => {
+  const {verificationToken} = req.params
+  
+};
+
 module.exports = {
   registrationControleer,
   loginControleer,
   logoutControleer,
   currentUserControleer,
+  verifyEmailControleer,
 };

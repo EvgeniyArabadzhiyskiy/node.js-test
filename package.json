@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "colors": "^1.4.0",
@@ -27,7 +28,6 @@
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.3",
     "shortid": "^2.2.16"
-    
   },
   "devDependencies": {
     "nodemon": "^2.0.19",
