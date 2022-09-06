@@ -1,13 +1,44 @@
-h1 {
-    color: red;
-    font-size: 40px;
+.form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background-color: rgb(167, 161, 161);
 }
 
-.list {
-    background-color: rgb(207, 140, 140);
+.chat-input {
+  flex-grow: 1;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 24px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
 }
 
-.list > li {
-    background-color: rgb(94, 84, 177);
-    margin-top: 30px;
+.chat-button {
+  padding: 10px 40px;
+  background-color: rgb(73, 70, 70);
+  color: aliceblue;
+  border: none;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.chat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-item {
+  height: 30px;
+  padding: 15px 5px;
+  font-size: 24px;
+}
+
+.chat-item:nth-child(2n) {
+  background-color: rgb(232, 231, 243);
 }

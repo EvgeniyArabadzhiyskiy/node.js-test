@@ -4,108 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styless.css" />
     <title>Document</title>
-  </head>
-  <body>
-    <h1>Common Title</h1>
-    <h3>Lorem ipsum dolor sit ame officixercitationem po.</h3>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" integrity="sha512-wpPYUAdjBVSE4KJnH1VR1HeZfpl1ub8YT/NKx4PuQ5NmX2tKuGu6U/JRp5y+Y8XG2tV+wKQpNHVUX03MfMFn9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./styless.css" />
 
-    <ul class="list">
-      <li class="list_item" data-open="open">ITEM</li>
-      <li class="list_item" data-open="open">ITEM</li>
-      <li class="list_item" data-open="open">ITEM</li>
-      <li class="list_item" data-open="open">ITEM</li>
-      <li class="list_item" data-open="open">ITEM</li>
-      <li class="list_item" data-open="open">ITEM</li>
-    </ul>
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+      const socket = io();
 
-    <p class="info">0</p>
-    <button class="increment" type="button">+1</button>
-    <button class="decrement" type="button">-1</button>
+      const userName = prompt("Enter your name", "Anonym");
 
-    <script>
-      // const listGallery = document.querySelector(".list");
-      // const item = document.querySelector(".list_item");
+      const container = document.querySelector(".chat-list");
 
-      // const incrBtn = document.querySelector(".increment");
-      // const decrBtn = document.querySelector(".decrement");
-      // const info = document.querySelector(".info");
+      const chatForm = document.querySelector(".form");
+      chatForm.addEventListener("submit", onFormSubmit);
 
-      class Counter {
-        constructor({ initialValue = 0, step = 1 } = {}) {
-          this.value = initialValue;
-          this.step = step;
-          this.bindEvents();
-          this.updateValueUI();
-        }
+      function onFormSubmit(evt) {
+        evt.preventDefault();
 
-        refs = {
-          incrBtn: document.querySelector(".increment"),
-          decrBtn: document.querySelector(".decrement"),
-          info: document.querySelector(".info"),
-        };
+        const form = evt.target;
+        const message = form.elements.chat.value;
 
-        bindEvents() {
-          this.refs.incrBtn.addEventListener("click", () => {
-            this.increment();
-            this.updateValueUI();
-          });
+        socket.emit("MESSAGE_FROM_CLIEN", {message, userName});
 
-          this.refs.decrBtn.addEventListener("click", () => {
-            this.decrement();
-            this.updateValueUI();
-          });
-        }
-
-        increment() {
-          this.value += this.step;
-          console.log("Counter ~ increment ~ this", this);
-          this.updateValueUI();
-        }
-
-        decrement() {
-          this.value -= this.step;
-          this.updateValueUI();
-        }
-
-        updateValueUI() {
-          this.refs.info.textContent = this.value;
-        }
+        form.reset();
       }
 
-      const counter = new Counter({ initialValue: 10, step: 10 });
+      socket.on("SERVER_MESSAGE_TO_ALL", (message) => {
+        const item = document.createElement("li");
+        item.classList.add("chat-item");
+        item.textContent = message;
+        container.appendChild(item);
 
-      // incrBtn.addEventListener("click", onClickIncrement.bind(counter));
-      // decrBtn.addEventListener("click", onClickDecrement.bind(counter));
-
-      // function onClickIncrement() {
-      //   this.increment();
-      // }
-
-      // function onClickDecrement() {
-      //   this.decrement();
-      // }
-
-      // const onclickByItem = (evt) => {
-      //   // if (!evt.target.dataset.open) {
-      //   //   return;
-      //   // }
-
-      //   // if (evt.target.nodeName === "UL") {
-      //   //   return;
-      //   // }
-      // };
-
-      // listGallery.addEventListener("click", onclickByItem);
-
-        // const user = {}
-
-        // user.name = {name: "djon"}
-        // console.log("user", user.name);
-
-
-
+        window.scrollTo(0, document.body.scrollHeight)
+      });
     </script>
+  </head>
+  <body>
+    <form class="form">
+      <input class="chat-input" type="text" name="chat" id="input" />
+      <button class="chat-button" type="submit">Send</button>
+    </form>
+    <ul class="chat-list"></ul>
   </body>
 </html>
