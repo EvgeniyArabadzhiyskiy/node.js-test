@@ -30,7 +30,7 @@ router.post("/",  controllerWrapper(addPostController));
 router.put("/:id", putPostValidation, controllerWrapper(putPostController));
 router.delete("/:id", controllerWrapper(deletePostController));
 
-router.post("/", uploadMiddleware.single("avatar"), controllerWrapper(filesController), controllerWrapper(addPostController));
+router.post("/load", uploadMiddleware.single("avatar"), controllerWrapper(filesController), controllerWrapper(addPostController));
 
 module.exports = { postRouter: router };
 // addPostValidation

@@ -24,6 +24,64 @@
     <button class="increment" type="button">+1</button>
     <button class="decrement" type="button">-1</button>
 
+    <form id="form" enctype="multipart/form-data">
+      <input id="file" type="file" name="avatar" />
+      <input id="text" type="text" name="text" />
+      <input id="topics" type="topics" name="topics" />
+      <button type="submit">Отправить</button>
+    </form>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"
+      integrity="sha512-rozBdNtS7jw9BlC76YF1FQGjz17qQ0J/Vu9ZCFIW374sEy4EZRbRcUZa2RU/MZ90X2mnLU56F75VfdToGV0RiA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", onFormSubmit);
+
+      function onFormSubmit(e) {
+        e.preventDefault();
+        const inputFile = e.target.elements.avatar;
+        const uploadFile = inputFile.files[0];
+
+        const textFile = e.target.elements.text.value;
+        const topicsFile = e.target.elements.topics.value;
+
+        const formData = new FormData();
+
+        formData.append("avatar", uploadFile);
+        formData.append("text", textFile);
+        formData.append("topics", topicsFile);
+
+        getProducts(formData);
+      }
+
+      async function getProducts(formData) {
+        const options = {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzFhZjU5NGM4ODUzOTk2OWE0ZjI1ZTkiLCJjcmVhdGVBdCI6IjIwMjItMDktMDlUMDg6MDc6MzcuNjU2WiIsImlhdCI6MTY2MjcxMTIxOX0.bOchl9pQeExTb-3UTCaXPAdZNb6kDxPNaKxJiwUNzFc",
+          },
+
+          // "Content-Type": "multipart/form-data",
+        };
+
+        const body = formData;
+        console.log("getProducts ~ body", body);
+
+        const { data } = await axios.post(
+          "http://localhost:8085/api/posts/load",
+          body,
+          options
+        );
+
+        console.log("getProducts ~ data", data);
+      }
+    </script>
+
     <script>
       // const listGallery = document.querySelector(".list");
       // const item = document.querySelector(".list_item");
@@ -99,13 +157,10 @@
 
       // listGallery.addEventListener("click", onclickByItem);
 
-        // const user = {}
+      // const user = {}
 
-        // user.name = {name: "djon"}
-        // console.log("user", user.name);
-
-
-
+      // user.name = {name: "djon"}
+      // console.log("user", user.name);
     </script>
   </body>
 </html>
