@@ -1,6 +1,5 @@
 const { Posts } = require("../db/postModel");
 
-// const collections = require("../db/collections");
 const {
   getPost,
   getPostById,
