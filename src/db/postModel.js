@@ -11,8 +11,6 @@ const postSchema = Schema({
   text: {
     type: String,
     required: true,
-    // select: false,
-    // unique: true,
   },
 
   image: {
