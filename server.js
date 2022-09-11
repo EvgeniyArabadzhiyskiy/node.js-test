@@ -4,8 +4,6 @@ const {postRouter} = require("./routers/postRouter");
 const { routerWeather } = require("./routers/weatherRoute");
 require("dotenv").config();
 
-
-
 const PORT = process.env.PORT;
 const app = express();
 
@@ -18,8 +16,6 @@ app.use(routerWeather);
 app.use('/api/posts',postRouter)
 
 
-
-
 app.use((req, response) => {
   response.send("ERROR");
 });
@@ -30,8 +26,6 @@ app.listen(PORT, (err) => {
   }
   console.log(`Server run on port ${PORT}`);
 });
-
-// console.log("hello  ");
 
 // npx nodemon server.js
 
