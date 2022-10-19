@@ -24,11 +24,27 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: err.message });
 });
 
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error(err);
-  }
-  console.log(`Server run on port ${PORT}`);
-});
+const appListenAsync = (port) =>
+  new Promise((resolve, reject) => {
+    app.listen(port, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  });
+
+appListenAsync(PORT)
+  .then(() => console.log(`Server run on port ${PORT}`))
+  .catch((err) => console.error(err));
+
+// app.listen(PORT, (err) => {
+//   if (err) {
+//     console.error(err);
+//   }
+//   console.log(`Server run on port ${PORT}`);
+// });
 
 // npx nodemon server.js
+
+
