@@ -1,22 +1,25 @@
 const express = require("express");
+const cors = require("cors");
 const { connectionMongo } = require("./src/db/connections");
 const { authRouter } = require("./src/routers/authRouter");
 const { postRouter } = require("./src/routers/postRouter");
+const { googleRouter } = require("./src/routers/googleOAuthRouter");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/api/auth", authRouter);
+// app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
+app.use("/auth-google", googleRouter);
 
-app.use((req, response) => {
-  response.send("ERROR");
-});
+
 
 app.use((err, req, res, next) => {
+  console.log("app.use  err", err);
   // const { status = 500, message = "Server error" } = err;
   res.status(500).json({ message: err.message });
 });
