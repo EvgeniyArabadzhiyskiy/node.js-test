@@ -31,11 +31,13 @@ const googleAuth = async (req, res) => {
     return res.redirect(
         `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
     )
+    // res.json({message: "SUPER"})
 }
 
 const googleRedirect = async (req, res) => {
    const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
 
+   console.log("googleRedirect  req.originalUrl", req.originalUrl);
    const urlOdject = new URL(fullUrl);
    const urlParams = queryString.parse(urlOdject.search);
    const code = urlParams.code;
@@ -63,14 +65,17 @@ const googleRedirect = async (req, res) => {
     // console.log("googleRedirect  userData", userData.data);
 
     const email = userData.data.email
-    console.log("googleRedirect  userData", userData.data.email);
+    // console.log("googleRedirect  userData", userData.data.email);
 
-    const user = await User.find({email});
-    console.log("googleRedirect  user", user);
+    // const user = await User.find({email});
+    // console.log("googleRedirect  user", user);
     
    
+    // return res.redirect(
+    //     `${FRONTEND_URL}/wallet-project/home?accessToken=${tokenData.data.access_token}`
+    // )
     return res.redirect(
-        `${FRONTEND_URL}?accessToken=${tokenData.data.access_token}`
+        `${FRONTEND_URL}?accessToken=${email}`
     )
 }
 
